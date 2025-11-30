@@ -72,7 +72,7 @@ export default function LandingPage() {
       <main className="container mx-auto px-6 pt-32 pb-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <div className="inline-block border border-green-800 bg-green-900/10 px-3 py-1 rounded text-xs mb-4 animate-pulse text-green-300 tracking-widest">
-            v1.0.0 SYSTEM ONLINE
+            v1.0.0 SYSTEM 
           </div>
           
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-white mb-4 leading-none">

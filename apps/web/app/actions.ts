@@ -89,14 +89,14 @@
 
 'use server';
 
-import { packageQueue } from "../lib/queue";
+import { projectQueue } from "../lib/queue";
 import fs from "fs/promises";
 import path from "path";
 import { existsSync } from "fs";
 
 export async function createJob(formData: FormData) {
   const prompt = formData.get("prompt") as string;
-  const job = await packageQueue.add("generate-package", { 
+  const job = await projectQueue.add("generate-package", { 
     prompt,
     user: "Vikas"
   });
@@ -104,11 +104,11 @@ export async function createJob(formData: FormData) {
 }
 
 export async function checkJobStatus(jobId: string) {
-  const job = await packageQueue.getJob(jobId);
+  const job = await projectQueue.getJob(jobId);
   if (!job) {
     return { status: "unknown", logs: [], packageName: null };
   }
-  const logs = await packageQueue.getJobLogs(jobId);
+  const logs = await projectQueue.getJobLogs(jobId);
   const state = await job.getState();
   
   const packageName = job.data.packageName || job.returnvalue?.packageName;
@@ -175,7 +175,7 @@ export async function getGeneratedFiles(packageName: string) {
 export async function publishProject(packageName: string) {
   console.log("SERVER publishProject CALLED with:", packageName);
 
-  const job = await packageQueue.add('publish-component', { 
+  const job = await projectQueue.add('publish-component', { 
     prompt: "DEPLOY_ONLY",
     packageName: packageName,
     user: "Vikas" 
